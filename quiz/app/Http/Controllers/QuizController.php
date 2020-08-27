@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Quiz;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -23,7 +24,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.quiz.create');
     }
 
     /**
@@ -34,7 +35,10 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validateForm($request);
+
+        $quiz = (new Quiz)->storeQuiz($data);
+        return redirect()->back()->with('message', 'Quiz created Successfully');
     }
 
     /**
@@ -80,5 +84,16 @@ class QuizController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // this function will be called in the create-quiz form to validate
+    // that all required fields are filled.
+
+    public function validateForm($request){
+        return $this->validate($request, [
+            'name'=>'required|string',
+            'description'=>'required|min:3|max:500',
+            'minutes'=>'required|integer'
+        ]);
     }
 }
