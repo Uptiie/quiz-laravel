@@ -26,6 +26,8 @@ class Question extends Model
     	return Question::create($data);
     }
 
+    //get quetions + paginate them
+    //limit and order coming from above private vars
     public function getQuestions(){
         return Question::orderBy('created_at',$this->order)->with('quiz')->paginate($this->limit);
 

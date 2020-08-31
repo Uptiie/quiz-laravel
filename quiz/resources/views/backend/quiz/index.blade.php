@@ -33,6 +33,7 @@
                                 <td>{{$quiz->name}}</td>
                                 <td>{{$quiz->description}}</td>
                                 <td>{{$quiz->minutes}}</td>
+                                <td><a href="{{route('quiz.question',[$quiz->id])}}"><button class="btn btn-inverse">View Questions</button></a></td>
                                 <td><a href="{{route('quiz.edit',[$quiz->id])}}"><button class="btn btn-success">Edit</button></a></td>
                                 <td><a href="{{route('quiz.edit',[$quiz->id])}}"><button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$quiz->id}}">Delete</button></a></td>
                             </tr>

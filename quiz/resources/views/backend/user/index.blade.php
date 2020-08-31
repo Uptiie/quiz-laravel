@@ -12,7 +12,7 @@
      					@endif
                         <div class="module">
                             <div class="module-head">
-                                <h3>All Questions</h3>
+                                <h3>All Users</h3>
                             </div>
 
                             <div class="module-body">
@@ -20,45 +20,45 @@
 								  <thead>
 									<tr>
 									  <th>#</th>
-									  <th>Question</th>
-									  <th>Quiz</th>
-									  <th>Created</th>
-									  <th></th>
+									  <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Occupation</th>
+                                      <th>Address</th>
+                                      <th>Phone</th>
+                                      <th>Password</th>
 									  <th></th>
 									  <th></th>
 									</tr>
 								  </thead>
 								  <tbody>
-								  	@if(count($questions)>0)
-								  	@foreach($questions as $key=>$question)
+								  	@if(count($users)>0)
+								  	@foreach($users as $key=>$user)
 									<tr>
 									  <td>{{$key+1}}</td>
-									  <td>{{$question->question}}</td>
-									  <td>{{$question->quiz->name}}</td>
-									  <td>{{date('F d,Y',strtotime($question->created_at))}}</td>
-									  <td>
-									  	<a href="{{route('question.show',[$question->id])}}"> <button class="btn btn-info">View</button></a>
-									  </td>
+									  <td>{{$user->name}}</td>
+									  <td>{{$user->email}}</td>
+                                      <td>{{$user->occupation}}</td>
+                                      <td>{{$user->address}}</td>
+                                      <td>{{$user->phone}}</td>
+                                      <td>{{$user->visible_password}}</td>
 									  
 									  <td>
                                             {{-- concatenate route to give a unique id after 
-                                                 extension (i.e www.quizapp.com/question/edit/4)  --}}
-									  		<a href="{{route('question.edit',[$question->id])}}">
+                                                 extension (i.e www.quizapp.com/user/edit/4)  --}}
+									  		<a href="{{route('user.edit',[$user->id])}}">
 									  			<button class="btn btn-primary">Edit</button>
-
 									  		</a>
-
 									  </td>
 									  <td>
 
-									  	<form id="delete-form{{$question->id}}" method="POST" action="{{route('question.destroy',[$question->id])}}" >@csrf
+									  	<form id="delete-form{{$user->id}}" method="POST" action="{{route('user.destroy',[$user->id])}}" >@csrf
 									  		{{method_field('DELETE')}}
 
 									  	</form>
 									  	<a href="#" onclick="if(confirm('Do you want to delete?')){
 
 									  		event.preventDefault();
-									  		document.getElementById('delete-form{{$question->id}}').submit()
+									  		document.getElementById('delete-form{{$user->id}}').submit()
 									  	}else{
 									  		event.preventDefault();
 									  	}
@@ -72,14 +72,14 @@
 									@endforeach
 
 									@else
-									<td>No question to display</td>
+									<td>No user to display</td>
 									@endif
 									
 									
 								  </tbody>
 								</table>
 								<div class="pagination pagination-centered" >
-									{{$questions->links()}}
+									{{$users->links()}}
 								</div>
                        		</div>
                    		</div>

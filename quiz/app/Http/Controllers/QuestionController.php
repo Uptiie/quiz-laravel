@@ -77,7 +77,7 @@ class QuestionController extends Controller
         $data = $this->validateForm($request);
         $question = (new Question)->updateQuestion($id,$request);
         $answer = (new Answer)->updateAnswer($request,$question);
-        return redirect()->route('question.show',$id)->with('message', 'Question updated successfully');
+        return redirect()->route('question.show',$id)->with('message', 'Question updated successfully!');
     }
 
     /**
