@@ -12,7 +12,7 @@
      					@endif
                         <div class="module">
                             <div class="module-head">
-                                <h3>User Exam</h3>
+                                <h3>User Result</h3>
                             </div>
 
                             <div class="module-body">
@@ -42,12 +42,9 @@
 									  </td>
 
 									  <td>
-									  	<form action="{{route('exam.remove')}}" method="POST">@csrf
-
-									  		<input type="hidden" name="user_id" value="{{$user->id}}">
-									  		<input type="hidden" name="quiz_id" value="{{$quiz->id}}">
-									  		<button class="btn btn-danger" type="submit">Remove</button>
-									  	</form>
+									  	<a href="result/{{$user->id}}/{{$quiz->id}}">
+									  		<button class="btn btn-primary">View Result</button>
+									  	</a>
 									  </td>
 									  
 									  									 

@@ -17,28 +17,39 @@ use Illuminate\Support\Facades\Route;
 
 //disabling register account so users cannot become an admin
 Auth::routes([
-    'register'=>false,
-    'reset'=>false,
-    'verify'=>false,
+
+	'register'=>false,
+	'reset'=>false,
+	'verify'=>false
 ]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//set all routes inside middleware function to protect it
+Route::get('user/quiz/{quizId}','ExamController@getQuizQuestions')->middleware('auth');
+
+Route::post('quiz/create','ExamController@postQuiz')->middleware('auth');
+
+Route::get('/result/user/{userId}/quiz/{quizId}','ExamController@viewResult')->middleware('auth');
 Route::group(['middleware'=>'isAdmin'],function(){
-
-    Route::get('/', function () {return view('admin.index');});
-    Route::get('/quiz/{id}/questions','QuizController@question')->name('quiz.question');
-    Route::get('exam/assign','ExamController@create');
-    Route::post('exam/assign','ExamController@assignExam')->name('exam.assign');
-
-    Route::resource('quiz', 'QuizController');
-    Route::resource('question', 'QuestionController');
-    Route::resource('user', 'UserController');
-
-    Route::get('/quiz/{id}/questions','QuizController@question')->name('quiz.question');
-    Route::get('exam/user','ExamController@userExam')->name('view.exam');
-    Route::get('exam/assign','ExamController@create')->name('user.exam');
-
+	Route::get('/', function () {
+    return view('admin.index');
 });
 
+	Route::resource('quiz','QuizController');
+	Route::resource('question','QuestionController');
+	Route::resource('user','UserController');
+
+	Route::get('/quiz/{id}/questions','QuizController@question')->name('quiz.question');
+
+	Route::get('exam/assign','ExamController@create')->name('user.exam');
+	Route::post('exam/assign','ExamController@assignExam')->name('exam.assign');
+  	Route::get('exam/user','ExamController@userExam')->name('view.exam');
+	Route::post('exam/remove','ExamController@removeExam')->name('exam.remove');
+   Route::get('result','ExamController@result')->name('result');
+   Route::get('result/{userId}/{quizId}','ExamController@userQuizResult');
+
+
+
+
+
+});
